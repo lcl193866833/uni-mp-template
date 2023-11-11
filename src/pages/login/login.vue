@@ -31,7 +31,7 @@ const loginSuccess = (profile: LoginResult) => {
 
 // 模拟手机号码快捷登录（开发练习）
 const onGetphonenumberSimple = async () => {
-  const { result } = await postLoginWxMinSimpleAPI('13573674330')
+  const { result } = await postLoginWxMinSimpleAPI('18036006078')
   loginSuccess(result)
 }
 </script>
