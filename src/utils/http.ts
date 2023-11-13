@@ -1,6 +1,6 @@
 import { useMemberStore } from '@/stores'
 // 请求基地址
-const baseURL = 'http://localhost:8088/shop-api'
+const baseURL = import.meta.env.VITE_API_URL as String
 // 拦截器配置
 const httpInterceptor = {
   // 拦截前触发
