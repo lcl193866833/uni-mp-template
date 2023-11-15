@@ -1,19 +1,19 @@
 <script setup lang="ts">
-//
 import { useMemberStore } from '@/stores'
 
 const memberStore = useMemberStore()
-
 //退出登录
 const onLogout = () => {
   //弹窗提示
   uni.showModal({
-    content: '是否退出登录',
+    content: '是否退出登录?',
     success: (res) => {
-      //清理用户信息
-      memberStore.clearProfile()
-      //返回上一页
-      uni.navigateBack()
+      if (res.confirm) {
+        //清理用户信息
+        memberStore.clearProfile()
+        //返回上一页
+        uni.navigateBack()
+      }
     }
   })
 }
@@ -38,7 +38,7 @@ const onLogout = () => {
       <navigator hover-class="none" class="item arrow" url=" ">关于</navigator>
     </view>
     <!-- 操作按钮 -->
-    <view class="action">
+    <view class="action" v-if="memberStore.profile">
       <view class="button" @tap="onLogout">退出登录</view>
     </view>
   </view>
