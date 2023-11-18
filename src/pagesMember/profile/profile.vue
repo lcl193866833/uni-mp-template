@@ -140,10 +140,10 @@ onLoad(() => {
             mode="date"
             start="1900-01-01"
             :end="new Date()"
-            :value="profile.birthday"
+            :value="profile?.birthday"
             @change="onBirthdayChange"
           >
-            <view v-if="profile.birthday">{{ profile.birthday }}</view>
+            <view v-if="profile?.birthday">{{ profile?.birthday }}</view>
             <view class="placeholder" v-else>请选择⽇期</view>
           </picker>
         </view>
@@ -152,7 +152,7 @@ onLoad(() => {
           <picker
             class="picker"
             mode="region"
-            :value="profile.fullLocation?.split(' ')"
+            :value="fullLocation?.split(' ')"
             @change="onFullLocationChange"
           >
             <view v-if="fullLocation">{{ fullLocation }}</view>
