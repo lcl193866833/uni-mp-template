@@ -1,15 +1,15 @@
 <script setup lang="ts">
-//@ts-ignore
+// @ts-ignore
 import Guess from '@/components/Guess/Guess'
 import type { InputNumberBoxEvent } from '@/components/vk-data-input-number-box/vk-data-input-number-box'
 
-//修改商品数量
+// 修改商品数量
 const onChangeCount = (ev: InputNumberBoxEvent) => {
   putMemberCartBySkuIdAPI(ev.index, { count: ev.value })
 }
 
 const memberStore = useMemberStore()
-//获取购物车数据
+// 获取购物车数据
 const cartList = ref<CartItem[]>([])
 const getMemberCartData = async () => {
   const res = await getMemberCartAPI()
@@ -17,49 +17,49 @@ const getMemberCartData = async () => {
 }
 
 onShow(() => {
-  //用户允许登录才允许调用
+  // 用户已登录才允许调用
   if (memberStore.profile) getMemberCartData()
 })
 
-//点击删除按钮
+// 点击删除按钮
 const onDeleteCart = (skuId: string) => {
-  //弹窗二次确认
+  // 弹窗二次确认
   uni.showModal({
     content: '是否删除',
     success: async (res) => {
       if (res.confirm) {
-        //后端删除单品
+        // 后端删除单品
         await deleteMemberCartAPI([skuId])
-        //重新获取列表
+        // 重新获取列表
         getMemberCartData()
       }
     }
   })
 }
-// 修改选中状态
+// 修改选中状态-单品修改
 const onChangeSelected = async (item: CartItem) => {
-  //
+  // 前端数据更新-是否选中取反
   item.selected = !item.selected
   // 后端数据更新
   await putMemberCartBySkuIdAPI(item.id, { selected: item.selected, count: item.count })
 }
+
 // 计算全选状态
 const isSelectedAll = computed(() => {
   return cartList.value.length && cartList.value.every((v) => v.selected)
 })
 
-//修改选中状态-全选修改
+// 修改选中状态-全选修改
 const onChangeSelectedAll = () => {
-  //全选状态更新
+  // 全选状态取反
   const _isSelectedAll = !isSelectedAll.value
-  //前端数据更新
+  // 前端数据更新
   cartList.value.forEach((item) => {
     item.selected = _isSelectedAll
   })
   // 后端数据更新
   putMemberCartSelectedAPI({ selected: _isSelectedAll })
 }
-
 // 计算选中单品列表
 const selectedCartList = computed(() => {
   return cartList.value.filter((v) => v.selected)
@@ -93,7 +93,7 @@ const gotoPayment = () => {
     <!-- 已登录: 显示购物车 -->
     <template v-if="memberStore.profile">
       <!-- 购物车列表 -->
-      <view class="cart-list" v-if="cartList.length > 0">
+      <view class="cart-list" v-if="true">
         <!-- 优惠提示 -->
         <view class="tips">
           <text class="label">满减</text>
@@ -115,15 +115,16 @@ const gotoPayment = () => {
                   <view class="price">{{ item.price }}</view>
                 </view>
               </navigator>
-            </view>
-            <view class="count">
-              <vk-data-input-number-box
-                v-model="item.count"
-                :min="1"
-                :max="item.stock"
-                :index="item.id"
-                @change="onChangeCount"
-              />
+              <!-- 商品数量 -->
+              <view class="count">
+                <vk-data-input-number-box
+                  v-model="item.count"
+                  :min="1"
+                  :max="item.stock"
+                  :index="item.id"
+                  @change="onChangeCount"
+                />
+              </view>
             </view>
             <!-- 右侧删除按钮 -->
             <template #right>
@@ -144,11 +145,15 @@ const gotoPayment = () => {
       </view>
       <!-- 吸底工具栏 -->
       <view class="toolbar">
-        <text class="all" @tap="onChangeSelectedAll" :class="{ checked: isSelectedAll }">全选</text>
+        <text @tap="onChangeSelectedAll" class="all" :class="{ checked: isSelectedAll }">全选</text>
         <text class="text">合计:</text>
         <text class="amount">{{ selectedCartListMoney }}</text>
-        <view @tap="gotoPayment" class="button-grounp">
-          <view class="button payment-button" :class="{ disabled: selectedCartListCount < 1 }">
+        <view class="button-grounp">
+          <view
+            @tap="gotoPayment"
+            class="button payment-button"
+            :class="{ disabled: selectedCartListCount < 1 }"
+          >
             去结算({{ selectedCartListCount }})
           </view>
         </view>
