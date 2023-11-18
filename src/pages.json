@@ -124,6 +124,23 @@
 					}
 				}
 			]
+		},
+		{
+			"root": "pagesMember/address",
+			"pages": [
+				{
+					"path": "address-form",
+					"style": {
+						"navigationBarTitleText": "address-form"
+					}
+				},
+				{
+					"path": "address",
+					"style": {
+						"navigationBarTitleText": "address"
+					}
+				}
+			]
 		}
 	],
 	//分包预加载规则
