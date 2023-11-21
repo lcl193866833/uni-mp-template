@@ -2,7 +2,7 @@
 NODE_ENV=development
 
 # 接口前缀
-# VITE_API_URL=http://127.0.0.1:8088/shop-api
+#VITE_API_URL=http://127.0.0.1:8088/shop-api
 VITE_API_URL=https://www.dreamcode.site/shop-api
 
 

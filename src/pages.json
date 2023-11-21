@@ -8,17 +8,19 @@
     }
   },
   "pages": [
-    //pages数组中第一项表示应用启动页，参考：https://uniapp.dcloud.io/collocation/pages
+    // pages数组中第一项表示应用启动页，参考：https://uniapp.dcloud.io/collocation/pages
     {
       "path": "pages/index/index",
       "style": {
-        "navigationBarTitleText": "首页"
+        "navigationBarTitleText": "我的",
+        "navigationStyle": "custom",
+        "navigationBarTextStyle": "white"
       }
     },
     {
-      "path": "pages/goods/goods",
+      "path": "pages/hot/hot",
       "style": {
-        "navigationBarTitleText": "商品详情"
+        "navigationBarTitleText": "热门推荐"
       }
     },
     {
@@ -48,9 +50,33 @@
       }
     },
     {
-      "path": "pages/hot/hot",
+      "path": "pages/goods/goods",
       "style": {
-        "navigationBarTitleText": "热门推荐"
+        "navigationBarTitleText": "商品详情"
+      }
+    },
+    {
+      "path": "pages/goods/components/AddressPanel",
+      "style": {
+        "navigationBarTitleText": "AddressPanel"
+      }
+    },
+    {
+      "path": "pages/goods/components/ServicePanel",
+      "style": {
+        "navigationBarTitleText": "ServicePanel"
+      }
+    },
+    // {
+    //   "path": "pages/goods/components/PageSkeleton",
+    //   "style": {
+    //     "navigationBarTitleText": "PageSkeleton"
+    //   }
+    // },
+    {
+      "path": "pages/cart/cart2",
+      "style": {
+        "navigationBarTitleText": "购物车"
       }
     }
   ],
@@ -114,15 +140,15 @@
           }
         },
         {
-          "path": "address/address-form",
-          "style": {
-            "navigationBarTitleText": "编辑地址"
-          }
-        },
-        {
           "path": "address/address",
           "style": {
             "navigationBarTitleText": "地址管理"
+          }
+        },
+        {
+          "path": "address/address-form",
+          "style": {
+            "navigationBarTitleText": "编辑地址"
           }
         }
       ]
@@ -133,13 +159,13 @@
         {
           "path": "create/create",
           "style": {
-            "navigationBarTitleText": "请填写订单"
+            "navigationBarTitleText": "填写订单"
           }
         }
       ]
     }
   ],
-  //分包预加载规则
+  // 分包预下载规则
   "preloadRule": {
     "pages/my/my": {
       "network": "all",
