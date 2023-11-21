@@ -5,7 +5,6 @@ NODE_ENV=development
 #VITE_API_URL=http://127.0.0.1:8088/shop-api
 VITE_API_URL=https://www.dreamcode.site/shop-api
 
-
 # 打包路径
 VITE_BASE_PATH=./
 
