@@ -1,10 +1,9 @@
 <script setup lang="ts">
 import { codeToText } from '@/utils/element-china-area-data.mjs'
-// 获取地址信息
-const addressStore = useAddressStore()
-const selectAddress = computed(() => {
-  return addressStore.selectedAddress || orderPre.value?.userAddresses.find((v) => v.isDefault)
-})
+
+// 获取屏幕边界到安全区域距离
+const { safeAreaInsets } = uni.getSystemInfoSync()
+
 // 页面参数
 const query = defineProps<{
   id?: string
@@ -12,9 +11,17 @@ const query = defineProps<{
   attrsText?: string
   OrderId?: string
 }>()
+
+// 获取地址信息
+const addressStore = useAddressStore()
+const selectAddress = computed(() => {
+  return addressStore.selectedAddress || orderPre.value?.userAddresses.find((v) => v.isDefault)
+})
+
 onMounted(() => {
   getMemberOrderPreData()
 })
+
 // 获取订单信息
 const orderPre = ref<OrderPreResult>()
 const getMemberOrderPreData = async () => {
@@ -27,18 +34,20 @@ const getMemberOrderPreData = async () => {
       attrsText: query.attrsText!
     })
     orderPre.value = res.result
+    console.log(orderPre.value.userAddresses[0].receiver)
   } else if (query.OrderId) {
     // 再次购买
     const res = await getMemberOrderRepurchaseByIdAPI(query.OrderId)
     orderPre.value = res.result
+    console.log(orderPre.value)
   } else {
     // 调用预付订单 API
     const res = await getMemberOrderPreAPI()
     orderPre.value = res.result
+    console.log(orderPre.value)
   }
 }
-// 获取屏幕边界到安全区域距离
-const { safeAreaInsets } = uni.getSystemInfoSync()
+
 // 订单备注
 const buyerMessage = ref('')
 // 配送时间

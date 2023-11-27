@@ -209,7 +209,7 @@ const onOrderConfirm = () => {
         <!-- 用户收货地址 -->
         <view class="locate">
           <view class="user"> {{ order.receiverContact }} {{ order.receiverMobile }}</view>
-          <view class="address"> {{ order.receiverAddress }}</view>
+          <view class="address">{{ order.receiverAddress }}</view>
         </view>
       </view>
       <!-- 商品信息 -->
